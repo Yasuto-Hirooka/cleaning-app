@@ -5,7 +5,8 @@ from sqlalchemy.orm import Session
 from typing import List
 import io
 import pandas as pd
-
+import os
+import uvicorn
 import models, schemas, crud, database
 
 models.Base.metadata.create_all(bind=database.engine)
@@ -258,3 +259,8 @@ def set_daily_lock_status(date: str, lock_data: schemas.DailyLockUpdate, db: Ses
     if lock_data.is_locked == 0 and crud.is_month_locked(db, year_month):
         raise HTTPException(status_code=403, detail=f"Cannot unlock: Month {year_month} is locked.")
     return crud.lock_day(db, date, lock_data.is_locked)
+if __name__ == "__main__":
+    # Renderが指定するポート番号を取得（なければ8000番を使用）
+    port = int(os.environ.get("PORT", 8000))
+    # サーバーを起動
+    uvicorn.run(app, host="0.0.0.0", port=port)
