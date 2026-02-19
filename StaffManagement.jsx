@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE = `http://${window.location.hostname}:8000/api`;
+const API_BASE = 'https://cleaning-app-1slv.onrender.com/api';
 const API_URL = `${API_BASE}/staff`;
 
 function StaffManagement() {
@@ -83,3 +83,4 @@ function StaffManagement() {
 }
 
 export default StaffManagement;
+
