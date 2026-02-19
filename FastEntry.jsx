@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_BASE = `http://${window.location.hostname}:8000/api`;
+const API_BASE ='https://cleaning-app-1slv.onrender.com/api';
 
 const FLOORS = [7, 8, 9, 10, 11, 12];
 
@@ -615,3 +615,4 @@ function FastEntry() {
 }
 
 export default FastEntry;
+
