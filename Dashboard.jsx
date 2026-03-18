@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_BASE = `http://${window.location.hostname}:8000/api`;
-const FLOORS = [7, 8, 9, 10, 11, 12];
 const REFRESH_INTERVAL = 30000; // 30 seconds
 
 // Circular progress ring component
@@ -100,8 +99,9 @@ function Dashboard() {
     const emptyRooms = totalRooms - doneRooms - partialRooms;
     const overallProgress = totalRooms > 0 ? Math.round((doneRooms / totalRooms) * 100) : 0;
 
-    // Per-floor stats
-    const floorStats = FLOORS.map(floor => {
+    // Per-floor stats (dynamic from rooms data)
+    const floors = [...new Set(rooms.map(r => r.floor))].sort((a, b) => a - b);
+    const floorStats = floors.map(floor => {
         const floorRooms = rooms.filter(r => r.floor === floor);
         const done = floorRooms.filter(r => getRoomStatus(r) === 'done').length;
         const partial = floorRooms.filter(r => getRoomStatus(r) === 'partial').length;
