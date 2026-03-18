@@ -15,13 +15,8 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5173",
-        "http://localhost:5173",
-        "http://127.0.0.1:8000",
-        "http://localhost:8000"
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -80,7 +75,12 @@ def create_records(records: List[schemas.CleaningRecordCreate], date: str = None
 @app.get("/api/records/raw")
 def get_raw_records(date: str, db: Session = Depends(get_db)):
     records = crud.get_raw_records(db, date)
-    return {"records": records}
+    return {"records": [
+        {"id": r.id, "date": r.date, "room_id": r.room_id,
+         "bed_staff_id": r.bed_staff_id, "bath_staff_id": r.bath_staff_id,
+         "towel_count": r.towel_count, "status": r.status}
+        for r in records
+    ]}
 
 @app.get("/api/reports/daily")
 def get_daily_report(date: str, db: Session = Depends(get_db)):
