@@ -11,6 +11,10 @@ function Home() {
                 <p className="hero-subtitle">Special Edition for Kobe Port Tower Hotel</p>
 
                 <div className="main-actions">
+                    <button className="portal-btn" onClick={() => navigate('/dashboard')}>
+                        <span className="icon">🗺️</span>
+                        <span className="label">ダッシュボード</span>
+                    </button>
                     <button className="portal-btn primary" onClick={() => navigate('/entry')}>
                         <span className="icon">📝</span>
                         <span className="label">日報入力</span>

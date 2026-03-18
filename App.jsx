@@ -7,6 +7,7 @@ import VendorReport from './components/VendorReport';
 import MonthlyReport from './components/MonthlyReport';
 import Settings from './components/Settings';
 import Home from './components/Home';
+import Dashboard from './Dashboard';
 
 function NavContent() {
   const location = useLocation();
@@ -34,6 +35,12 @@ function NavContent() {
             className="nav-link"
           >
             🏠 ホーム
+          </NavLink>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            📊 ダッシュボード
           </NavLink>
           <NavLink
             to="/entry"
@@ -103,6 +110,7 @@ function MainLayout() {
         <NavContent />
       )}
       <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/home" element={<Home />} />
         <Route path="/staff" element={<StaffManagement />} />
         <Route path="/rooms" element={<RoomManagement />} />
